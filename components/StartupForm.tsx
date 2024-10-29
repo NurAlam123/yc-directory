@@ -1,19 +1,77 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import MDEditor from "@uiw/react-md-editor";
 import { Button } from "./ui/button";
 import { Send } from "lucide-react";
+import { formSchema } from "@/lib/validation";
+import { z } from "zod";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const StartupForm = () => {
-  const [error, setError] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [pitch, setPicth] = useState("");
-  const isPending = false;
+
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleFormSubmit = async (prevState: any, formData: FormData) => {
+    try {
+      const formValues = {
+        title: formData.get("title") as string,
+        description: formData.get("description") as string,
+        category: formData.get("category") as string,
+        link: formData.get("link") as string,
+        pitch,
+      };
+
+      await formSchema.parseAsync(formValues);
+      //const result = await createIdea(prevState, formData, pitch)
+      //
+      //if (result.status == "SUCCESS") {
+      //  toast({
+      //    title: "Success",
+      //    description: "Your startup pitch has been created successfully",
+      //  });
+      //  router.push(`/startup/${result.id}`);
+      //}
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldError = error.flatten().fieldErrors;
+        setErrors(fieldError as unknown as Record<string, string>);
+
+        toast({
+          title: "Error",
+          description: "Please check your inputs and try again",
+          variant: "destructive",
+        });
+
+        return { ...prevState, error: "Validation failed", status: "ERROR" };
+      }
+      toast({
+        title: "Error",
+        description: "An unexpected error has occured",
+        variant: "destructive",
+      });
+
+      return {
+        ...prevState,
+        error: "An unexpected error has occured",
+        status: "ERROR",
+      };
+    }
+  };
+
+  const [state, formAction, isPending] = useActionState(handleFormSubmit, {
+    error: "",
+    status: "INITIAL",
+  });
 
   return (
-    <form className="startup-form" action={() => {}}>
+    <form className="startup-form" action={formAction}>
       <div>
         <label htmlFor="title" className="startup-form_label">
           Title
@@ -25,7 +83,7 @@ const StartupForm = () => {
           required
           placeholder="Startup Title"
         />
-        {error.title && <p className="startup-form_error">{error.title}</p>}
+        {errors.title && <p className="startup-form_error">{errors.title}</p>}
       </div>
 
       <div>
@@ -39,8 +97,8 @@ const StartupForm = () => {
           required
           placeholder="Startup Description"
         />
-        {error.description && (
-          <p className="startup-form_error">{error.description}</p>
+        {errors.description && (
+          <p className="startup-form_error">{errors.description}</p>
         )}
       </div>
 
@@ -55,8 +113,8 @@ const StartupForm = () => {
           required
           placeholder="Startup Category (Tech, Health, Education...)"
         />
-        {error.category && (
-          <p className="startup-form_error">{error.category}</p>
+        {errors.category && (
+          <p className="startup-form_error">{errors.category}</p>
         )}
       </div>
 
@@ -71,7 +129,7 @@ const StartupForm = () => {
           required
           placeholder="Startup Image URL"
         />
-        {error.link && <p className="startup-form_error">{error.link}</p>}
+        {errors.link && <p className="startup-form_error">{errors.link}</p>}
       </div>
 
       <div data-color-mode="light">
@@ -96,7 +154,7 @@ const StartupForm = () => {
             disallowedElements: ["style"],
           }}
         />
-        {error.pitch && <p className="startup-form_error">{error.pitch}</p>}
+        {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
       </div>
 
       <Button

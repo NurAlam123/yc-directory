@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { workSans } from "./fonts";
 import "easymde/dist/easymde.min.css";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "YC Directory",
@@ -15,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${workSans.variable} antialiased`}>{children}</body>
+      <body className={`${workSans.variable} antialiased`}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

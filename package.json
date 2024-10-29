@@ -32,7 +32,8 @@
     "server-only": "^0.0.1",
     "styled-components": "6",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "packagManager": "npm@10.5.2",
   "overrides": {
