@@ -25,16 +25,18 @@ export default async function Home({
         <SearchForm query={query} />
       </section>
 
-      <section className="section_container !max-w-3xl overflow-hidden">
+      <section className="section_container !min-w-3xl overflow-hidden">
         <p className="text-30-semibold">
           {query ? `Search results for "${query}"` : "All startups"}
         </p>
 
         <ul className="card_grid mt-7">
-          {posts?.length > 0 ? posts.map((post: StartupCardType) => (
-            <StartupCard key={post._id} post={post} />
-          )): (
-          <p className="no-results">No startsups found.</p>
+          {posts?.length > 0 ? (
+            posts.map((post: StartupCardType) => (
+              <StartupCard key={post._id} post={post} />
+            ))
+          ) : (
+            <p className="no-results">No startsups found.</p>
           )}
         </ul>
       </section>

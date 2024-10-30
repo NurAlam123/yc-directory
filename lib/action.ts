@@ -10,6 +10,7 @@ export const createPitch = async (
   form: FormData,
   pitch: string,
 ) => {
+  console.log("calling->");
   const session = await auth();
 
   if (!session)
@@ -35,7 +36,7 @@ export const createPitch = async (
           current: slug,
         },
         _type: "reference",
-        _ref: session?.id,
+        _ref: session?._id,
       },
       views: 0,
     };
