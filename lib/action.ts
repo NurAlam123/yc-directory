@@ -10,7 +10,6 @@ export const createPitch = async (
   form: FormData,
   pitch: string,
 ) => {
-  console.log("calling->");
   const session = await auth();
 
   if (!session)
@@ -19,7 +18,7 @@ export const createPitch = async (
       status: "ERROR",
     });
 
-  const { title, description, link } = Object.fromEntries(
+  const { title, description, link, category } = Object.fromEntries(
     Array.from(form).filter((key) => key != "pitch"),
   );
   const slug = slugify(title as string, { lower: true, strict: true });
@@ -29,12 +28,13 @@ export const createPitch = async (
       title,
       description,
       pitch,
+      category,
       image: link,
+      slug: {
+        _type: slug,
+        current: slug,
+      },
       author: {
-        slug: {
-          _type: slug,
-          current: slug,
-        },
         _type: "reference",
         _ref: session?._id,
       },
