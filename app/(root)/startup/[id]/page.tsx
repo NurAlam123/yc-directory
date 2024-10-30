@@ -10,8 +10,8 @@ import { notFound } from "next/navigation";
 import markdownIt from "markdown-it";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { View } from "lucide-react";
 import StartupCard, { StartupCardType } from "@/components/StartupCard";
+import View from "@/components/View";
 
 const md = markdownIt();
 
@@ -20,13 +20,11 @@ export const experimental_ppr = true;
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
-  // Parallel Fetching
-  const [post, { select: editorPosts }] = await Promise.all([
-    client.fetch(STARTUP_BY_ID_QUERY, { id }),
-    client.fetch(PLAYLIST_BY_SLUG_QUERY, {
-      slug: "editor-picks",
-    }),
-  ]);
+  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
+
+  const { select: editorPosts } = await client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+    slug: "editor-picks",
+  });
 
   if (!post) return notFound();
 

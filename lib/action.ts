@@ -27,16 +27,17 @@ export const createPitch = async (
     const startup = {
       title,
       description,
+      pitch,
       image: link,
-      slug: {
-        _type: slug,
-        current: slug,
-      },
       author: {
+        slug: {
+          _type: slug,
+          current: slug,
+        },
         _type: "reference",
         _ref: session?.id,
       },
-      pitch,
+      views: 0,
     };
 
     const result = await writeClient.create({
