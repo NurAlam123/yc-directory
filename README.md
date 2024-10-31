@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YC Directory
+A modern Full Stack app for the new era for startups. Submit your ideas, vote on pitches and get noticed in virtual competition.
+**Pitch, Vote, Grow**
 
-## Getting Started
+![YC Directory Home Page](./public/yc-directory.png)
 
-First, run the development server:
+## Live Site 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Check out the live site: [YC Directory](https://yc-directory-rho.vercel.app/)
+
+## Features
+
+- Simple and clean UI design
+- Github authentication
+- Search functionality
+- Details page for pitches
+- Live content fetching
+- Dedicated user profile page
+- Live views counting
+- Startup submission page
+
+## Tech Stack
+
+- React 19
+- Next.js 15
+- Tailwind CSS
+- Sanity
+- Shadcn
+
+## Quick Start
+
+### Prerequisites
+Make sure you have the following installed on your local machine
+
+- Git 
+- Node.js
+- npm or yarn
+
+### Installation
+
+1. Clone the repo
+```sh 
+git clone https://github.com/nuralam123/yc-directory.git
+cd yc-directory
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install the project dependencies using npm or yarn
+```sh 
+npm install
+# or 
+yarn install
+```
+3. Set up Environment variables
+```sh 
+AUTH_SECRET= 
+AUTH_GITHUB_ID=
+AUTH_GITHUB_SECRET=
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=
+NEXT_PUBLIC_SANITY_API_VERSION='vX'
+SANITY_WRITE_TOKEN=
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
 
-## Learn More
+Replace the placeholder values with your actual Sanity credentials. You can obtain these credentials by signing up & creating a new project on the [Sanity website.](https://www.sanity.io/)
 
-To learn more about Next.js, take a look at the following resources:
+4. Running the project
+```sh 
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Design 
 
-## Deploy on Vercel
+The design and project was showcased by [JavaScript Mastery](https://www.youtube.com/@javascriptmastery). You can find the tutorial here [Next.js 15 Crash Course | Build and Deploy a Production-Ready Full Stack App](https://www.youtube.com/watch?v=Zq5fmkH0T78)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open source and available under the [MIT License](./LICENSE.md)
+
+
+### Acknowledgements
+
+The design and project was showcased by [JavaScript Mastery](https://www.youtube.com/@javascriptmastery). You can find the tutorial here [Next.js 15 Crash Course | Build and Deploy a Production-Ready Full Stack App](https://www.youtube.com/watch?v=Zq5fmkH0T78)
+
+While the implementation code is licensed under the MIT License, please note that this does not extend to any design assets or other resources provided by JavaScript Mastery. For usage of those elements, please refer to JavaScript Mastery terms and conditions.
+
